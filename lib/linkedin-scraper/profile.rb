@@ -231,7 +231,7 @@ module Linkedin
         company[:company] = node.at('.item-subtitle').text.gsub(/\s+|\n/, ' ').strip if node.at('.item-subtitle')
         company[:location] = node.at('.location').text if node.at('.location')
         company[:description] = node.at('.description').text.gsub(/\s+|\n/, ' ').strip if node.at('.description')
-        company[:company_logo] = node.at('.logo a img').first[1] if node.at('.logo')
+        company[:company_logo] = node.at('.logo a img').first[1] if node.at('.logo a img')
 
         start_date, end_date = node.at('.date-range').text.strip.split(' – ') rescue nil
         company[:duration] = node.at('.date-range').text[/.*\((.*)\)/, 1]
