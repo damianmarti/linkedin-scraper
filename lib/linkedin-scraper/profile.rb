@@ -254,8 +254,34 @@ module Linkedin
       @companies
     end
 
+    def translate_full_month(month)
+      month && full_months.each do |key, value|
+        month = month.gsub(key, value)
+      end
+      month
+    end
+
+    def full_months
+      {
+        'enero' => 'january',
+        'febrero' => 'february',
+        'marzo' => 'march',
+        'abril' => 'april',
+        'mayo' => 'may',
+        'junio' => 'june',
+        'julio' => 'july',
+        'agosto' => 'august',
+        'septiembre' => 'september',
+        'octubre' => 'october',
+        'noviembre' => 'november',
+        'diciembre' => 'december'
+      }
+    end
+
     def parse_date(date)
       date = '#{date}-01-01' if date =~ /^(19|20)\d{2}$/
+      date = translate_full_month(date.downcase)
+      date = date.gsub(' de ', '')
       Date.parse(date)
     end
 

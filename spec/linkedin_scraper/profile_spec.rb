@@ -89,6 +89,42 @@ describe Linkedin::Profile do
     end
   end
 
+  describe '#current_companies' do
+    it "returns list of profile's current companies" do
+      expect(profile.current_companies.size).to eq 6
+    end
+
+    it 'returns LinkedIn as the first company' do
+      expect(profile.current_companies.first[:company]).to eq 'LinkedIn'
+    end
+
+    it 'returns Venture For America as the last company' do
+      expect(profile.current_companies.last[:company]).to eq 'Venture For America'
+    end
+  end
+
+  describe '#past_companies' do
+    it "returns list of profile's past companies" do
+      expect(profile.past_companies.size).to eq 6
+    end
+
+    it 'returns Accel Partners as the first company' do
+      expect(profile.past_companies.first[:company]).to eq 'Accel Partners'
+    end
+
+    it 'returns Braxton Associates as the last company' do
+      expect(profile.past_companies.last[:company]).to eq 'Braxton Associates'
+    end
+
+    it 'returns 1992/09/01 as the last company start date' do
+      expect(profile.past_companies.last[:start_date]).to eq(Date.parse('1992/09/01'))
+    end
+
+    it 'returns 1993/01/02 as the last company end date' do
+      expect(profile.past_companies.last[:end_date]).to eq(Date.parse('1993/01/02'))
+    end
+  end
+
   describe '#languages' do
     it "returns list of profile's languages" do
       expect(profile.languages.size).to eq 2
