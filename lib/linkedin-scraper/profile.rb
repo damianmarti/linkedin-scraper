@@ -81,9 +81,8 @@ module Linkedin
     end
 
     def picture
-      if @page.at('.profile-picture img')
-        @picture ||= @page.at('.profile-picture img').attributes.values_at('src', 'data-delayed-url').
-            compact.first.value.strip
+      if @page.at('meta[property="og:image"]')
+        @picture ||= @page.at('meta[property="og:image"]').attributes['content'].value.strip
       end
     end
 
