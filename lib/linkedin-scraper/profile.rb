@@ -98,6 +98,10 @@ module Linkedin
       @current_companies ||= get_companies.find_all { |c| c[:end_date] == 'Present' }
     end
 
+    def companies
+      @companies ||= get_companies
+    end
+
     def education
       @education ||= @page.search('.schools .school').map do |item|
         name = item.at('h4').text.gsub(/\s+|\n/, ' ').strip if item.at('h4')
