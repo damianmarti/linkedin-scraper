@@ -105,7 +105,14 @@ module Linkedin
     def education
       @education ||= @page.search('.schools .school').map do |item|
         name = item.at('h4').text.gsub(/\s+|\n/, ' ').strip if item.at('h4')
-        desc = item.search('h5').last.text.gsub(/\s+|\n/, ' ').strip if item.search('h5').last
+        if item.search('h5').last
+          if item.search('h5').last.at('.original')
+            desc_text = item.search('h5').last.at('.original').text
+          else
+            desc_text = item.search('h5').last.text
+          end
+          desc = desc_text.gsub(/\s+|\n/, ' ').strip
+        end
         if item.search('h5').last.at('.degree')
           degree = item.search('h5').last.at('.degree').text.gsub(/\s+|\n/, ' ').strip.gsub(/,$/, '')
         end
